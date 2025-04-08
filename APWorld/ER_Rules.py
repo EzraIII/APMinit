@@ -140,7 +140,7 @@ class ER_MinitRules:
             # "factory loading upper <-> factory snakehall": lambda state: True,
             # "shoe shop inside <-> shoe shop outside": lambda state: True,
             # "desert RV main <-> RV house": lambda state: True,
-            "Overworld treasure island <-> Overworld island shack": lambda state: False,
+            "treasure island <-> Overworld island shack": lambda state: False,
                 # obscure: you can swim accross
             "island house -> Overworld island shack": lambda state: True,
             "Overworld island shack -> island house": self.helpers["sword"],
@@ -224,7 +224,12 @@ class ER_MinitRules:
             "sewer island water west":  self.helpers["swim"],
             "throwcheck water south":  self.helpers["swim"],
             "throwcheck water west":  self.helpers["swim"],
-            "Overworld wet06": self.helpers["swim"],
+            "open waters rock east": self.helpers["swim"],
+            "open waters rock south": self.helpers["swim"],
+            "plain open waters north": self.helpers["swim"],
+            "plain open waters south": self.helpers["swim"],
+            "treasure island": self.helpers["swim"],
+            "Overworld wet <-> Overworld desert": self.helpers["swim"],
             "bridge switch left <-> bridge switch right":  lambda state: False, # damage boosting is out of logic
 
             # # toxic waters
@@ -503,7 +508,7 @@ class ER_MinitRules:
             "camera river north -> camera river south": lambda state: True,
 
             # Bait the sharks
-            "Overworld treasure island <-> Overworld island shack": self.helpers["swim"],
+            "treasure island <-> Overworld island shack": self.helpers["swim"],
 
             # Glitch through with precision
             "factory cooler west <-> factory cooler tile": lambda state: 
@@ -515,8 +520,6 @@ class ER_MinitRules:
                 self.helpers["sword"](state)
                 and self.helpers["darkroom1"](state)
                 and self.helpers["swim"](state),
-            
-
         }
 
         def apply_rules(optional_rules):

@@ -84,7 +84,7 @@ location_table = {
         # coin7 - chest
         offset=13,
         region="Dog House",
-        er_region="Overworld treasure island",),
+        er_region="treasure island",),
     "Dog House - Plant Heart": MinitLocationData(
         # heartPiece1
         offset=14,
@@ -104,7 +104,7 @@ location_table = {
         # tentacle2
         offset=17,
         region="Dog House",
-        er_region="Overworld treasure island",),
+        er_region="treasure island",),
     "Dog House - Sword Toss Tentacle": MinitLocationData(
         # tentacle3
         offset=18,
