@@ -29,7 +29,7 @@ Darkrooms1 = [
 
 Darkrooms2 = [
     "Dog House - Hidden Snake Coin",
-    "Dog House - Bull Heart",
+    # "Dog House - Bull Heart",  # darkroom is bypassable by glove+swim
     "Desert RV - ItemTurboInk",
     "Desert RV - Temple Coin",
     "Desert RV - Quicksand Coin",
@@ -47,20 +47,20 @@ Darkrooms3 = [
     ]
 
 ER_Darkrooms1 = [
-    "Hotel Room - ItemGrinder",
-    "Factory Main - ItemMegaSword",
+    # darkrooms in ER are usually harder because you don't have context clues
     ]
 
 ER_Darkrooms2 = [
     "Dog House - Sewer Coin",
-    "Dog House - Hidden Snake Coin",
     "Desert RV - Fire Bat Coin",
-    "Desert RV - ItemTurboInk",
     "Desert RV - Quicksand Coin",
+    "Hotel Room - ItemGrinder",
     ]
 
 ER_Darkrooms3 = [
+    "Dog House - Hidden Snake Coin",
     "Dog House - Sewer Tentacle",
+    "Desert RV - ItemTurboInk",
     "Desert RV - Temple Heart",
     "Desert RV - Octopus Tentacle",
     "Hotel Room - Miner's Chest Coin",
@@ -148,12 +148,20 @@ class TestDarkroom0(MinitTestBase):
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + Darkrooms1
-        locations + Darkrooms2
-        locations + Darkrooms3
+        locations += Darkrooms1
+        locations += Darkrooms2
+        locations += Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
+        self.assertAccessDependency(locations, items, only_check_listed=True)
+
+    def test_minit_bull_heart(self):
+        """Test Bull Heart alone to disallow the swim or glove route"""
+        locations = ["Dog House - Bull Heart"]
+        items = [
+            ["ItemFlashLight", "ItemSwim", "ItemGlove"]
+        ]
         self.assertAccessDependency(locations, items, only_check_listed=True)
 
 
@@ -165,17 +173,25 @@ class TestDarkroom1(MinitTestBase):
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + Darkrooms2
-        locations + Darkrooms3
+        locations += Darkrooms2
+        locations += Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
         self.assertAccessDependency(locations, items, only_check_listed=True)
 
+    def test_minit_bull_heart(self):
+        """Test Bull Heart alone to disallow the swim or glove route"""
+        locations = ["Dog House - Bull Heart"]
+        items = [
+            ["ItemFlashLight", "ItemSwim", "ItemGlove"]
+        ]
+        self.assertAccessDependency(locations, items, only_check_listed=True)
+
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
+        locations += Darkrooms1
         items = [
             ["ItemFlashLight"],
             ]
@@ -190,17 +206,25 @@ class TestDarkroom2(MinitTestBase):
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + Darkrooms3
+        locations += Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
         self.assertAccessDependency(locations, items, only_check_listed=True)
 
+    def test_minit_bull_heart(self):
+        """Test Bull Heart alone to disallow the swim or glove route"""
+        locations = ["Dog House - Bull Heart"]
+        items = [
+            ["ItemFlashLight", "ItemSwim", "ItemGlove"]
+        ]
+        self.assertAccessWithout(locations, items)
+
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
-        locations + Darkrooms2
+        locations += Darkrooms1
+        locations += Darkrooms2
         items = [
             ["ItemFlashLight"],
             ]
@@ -212,12 +236,20 @@ class TestDarkroom3(MinitTestBase):
         "darkrooms": 3,
     }
 
+    def test_minit_bull_heart(self):
+        """Test Bull Heart alone to disallow the swim or glove route"""
+        locations = ["Dog House - Bull Heart"]
+        items = [
+            ["ItemFlashLight", "ItemSwim", "ItemGlove"]
+        ]
+        self.assertAccessWithout(locations, items)
+
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
-        locations + Darkrooms2
-        locations + Darkrooms3
+        locations += Darkrooms1
+        locations += Darkrooms2
+        locations += Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
@@ -245,14 +277,15 @@ class TestER(MinitTestBase):
 class TestERDarkroom0(MinitTestBase):
     options = {
         "darkrooms": 0,
+        "er_option": 1,
     }
 
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + ER_Darkrooms1
-        locations + ER_Darkrooms2
-        locations + ER_Darkrooms3
+        locations += ER_Darkrooms1
+        locations += ER_Darkrooms2
+        locations += ER_Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
@@ -262,13 +295,14 @@ class TestERDarkroom0(MinitTestBase):
 class TestERDarkroom1(MinitTestBase):
     options = {
         "darkrooms": 1,
+        "er_option": 1,
     }
 
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + ER_Darkrooms2
-        locations + ER_Darkrooms3
+        locations += ER_Darkrooms2
+        locations += ER_Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
@@ -277,7 +311,7 @@ class TestERDarkroom1(MinitTestBase):
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
+        locations += ER_Darkrooms1
         items = [
             ["ItemFlashLight"],
             ]
@@ -287,12 +321,13 @@ class TestERDarkroom1(MinitTestBase):
 class TestERDarkroom2(MinitTestBase):
     options = {
         "darkrooms": 2,
+        "er_option": 1,
     }
 
     def test_minit_flashlight(self):
         """Test locations that require Flashlight"""
         locations = []
-        locations + ER_Darkrooms3
+        locations += ER_Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]
@@ -301,8 +336,8 @@ class TestERDarkroom2(MinitTestBase):
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
-        locations + Darkrooms2
+        locations += ER_Darkrooms1
+        locations += ER_Darkrooms2
         items = [
             ["ItemFlashLight"],
             ]
@@ -312,14 +347,15 @@ class TestERDarkroom2(MinitTestBase):
 class TestERDarkroom3(MinitTestBase):
     options = {
         "darkrooms": 3,
+        "er_option": 1,
     }
 
     def test_minit_darkrooms(self):
         """Test locations that do not require Flashlight"""
         locations = []
-        locations + Darkrooms1
-        locations + Darkrooms2
-        locations + Darkrooms3
+        locations += ER_Darkrooms1
+        locations += ER_Darkrooms2
+        locations += ER_Darkrooms3
         items = [
             ["ItemFlashLight"],
             ]

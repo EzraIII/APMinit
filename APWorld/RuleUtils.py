@@ -1,31 +1,28 @@
-def total_hearts(player: int, state, count: int) -> bool:
-    return state.has("HeartPiece", player, count - 2)
+from rule_builder.options import OptionFilter
+from rule_builder.rules import Has, HasAll, HasAny, Rule
+from .Options import Darkrooms, Obscure
 
 
-def has_megasword(player: int, state) -> bool:
-    return (
-        state.has_any(("ItemMegaSword", "Reverse Progressive Sword",), player)
-        or state.has("Progressive Sword", player, 3)
-        )
+obscure_enabled = OptionFilter(Obscure, Obscure.option_true)
 
 
-def has_brokensword(player: int, state) -> bool:
-    return (
-        state.has_any(("ItemBrokenSword", "Progressive Sword",), player)
-        or state.has("Reverse Progressive Sword", player, 3)
-        )
+has_megasword = HasAny("ItemMegaSword", "Reverse Progressive Sword") | Has("Progressive Sword", count=3)
+has_brokensword = HasAny("ItemBrokenSword", "Progressive Sword") | Has("Reverse Progressive Sword", count=3)
+can_pass_boxes = HasAll("has_sword", "ItemGrinder") | Has("ItemCoffee")
+can_open_chest = HasAny("has_sword", "ItemWateringCan")
+
+# lt because rulebuilder only short circuits if any filter returns False
+has_flashlight = Has("ItemFlashLight")
+has_darkroom0 = has_flashlight | OptionFilter(Darkrooms, 0, "ge")
+has_darkroom1 = has_flashlight | OptionFilter(Darkrooms, 1, "ge")
+has_darkroom2 = has_flashlight | OptionFilter(Darkrooms, 2, "ge")
+has_darkroom3 = has_flashlight | OptionFilter(Darkrooms, 3, "ge")
+
+completion_rules = {
+    "boss_fight": Has("Boss dead"),
+    "toilet_goal": has_brokensword & Has("Sword Flushed"),
+}
 
 
-def has_darkroom(player: int, state, value: int, darkrooms: int) -> bool:
-    return darkrooms >= value or state.has("ItemFlashLight", player)
-
-
-def can_passBoxes(player: int, state) -> bool:
-    return (
-        state.has_all(("has_sword", "ItemGrinder",), player)
-        or state.has("ItemCoffee", player)
-        )
-
-
-def can_openChest(player: int, state) -> bool:
-    return state.has_any(("has_sword", "ItemWateringCan",), player)
+def total_hearts(count: int) -> Rule:
+    return Has("HeartPiece", count - 2)
