@@ -39,13 +39,9 @@ from worlds.LauncherComponents import (
     Type,
 )
 from Utils import visualize_regions
+from entrance_rando import randomize_entrances
+from BaseClasses import EntranceType
 
-try:
-    from entrance_rando import randomize_entrances
-    from BaseClasses import EntranceType
-    er_loaded = True
-except ModuleNotFoundError:
-    er_loaded = False
 #TODO - save mod specific values like location_sent etc.
 
 
@@ -125,23 +121,9 @@ class MinitWebWorld(WebWorld):
 
 
 def launch_client(*args):
-    try:
-        from worlds.LauncherComponents import launch as launch_component
-        from .MinitClient import launch
-        launch_component(launch, name="MinitClient", args=args)
-    except ImportError:
-        launch_if_needed(*args)
-
-
-# TODO remove eventually once 0.6.0 is old enough
-def launch_if_needed(*args):
-    import sys
-    from worlds.LauncherComponents import launch_subprocess
+    from worlds.LauncherComponents import launch as launch_component
     from .MinitClient import launch
-    if not sys.stdout or "--nogui" not in sys.argv:
-        launch_subprocess(launch, name="MinitClient", args=args)
-    else:
-        launch(*args)
+    launch_component(launch, name="MinitClient", args=args)
 
 
 components.append(Component(
@@ -173,10 +155,6 @@ class MinitWorld(World):
 
     def generate_early(self):
         self.spoiler_hints = {}
-        if self.options.er_option and not er_loaded:
-            # TODO remove once GER is old enough
-            from Options import OptionError
-            raise OptionError("Please use the Generic Entrance Rando branch for ER")
 
     def create_item(self, name: str) -> MinitItem:
         data = item_table[name]
@@ -462,18 +440,12 @@ class MinitWorld(World):
     def collect(self, state: "CollectionState", item: "Item") -> bool:
         change = super().collect(state, item)
         if change and item.name in item_groups["swords"]:
-            if hasattr(state, "add_item"):
-                state.add_item("has_sword", self.player)
-            else:  # TODO remove when 0.6.2 is old enough
-                state.prog_items[item.player]["has_sword"] += 1
+            state.add_item("has_sword", self.player)
         return change
 
     def remove(self, state: "CollectionState", item: "Item") -> bool:
         change = super().remove(state, item)
         if change and item.name in item_groups["swords"]:
-            if hasattr(state, "add_item"):
-                state.remove_item("has_sword", self.player)
-            else:  # TODO remove when 0.6.2 is old enough
-                state.prog_items[item.player]["has_sword"] -= 1
+            state.remove_item("has_sword", self.player)
             assert state.prog_items[item.player]["has_sword"] > -1
         return change

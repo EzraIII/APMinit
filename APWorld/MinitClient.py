@@ -16,6 +16,7 @@ from CommonClient import (
     get_base_parser,
     server_loop,
     ClientCommandProcessor,
+    handle_url_arg,
 )
 
 from .Items import item_table
@@ -28,45 +29,6 @@ try:
 except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
     from CommonClient import ClientCommandProcessor as SuperCommandProcessor
-
-try:
-    from CommonClient import handle_url_arg
-except ImportError:
-    # back compat, can delete once 0.6.0 is old enough
-    def handle_url_arg(args: Namespace, parser: ArgumentParser | None = None) -> Namespace:
-        """
-        Parse the url arg "archipelago://name:pass@host:port" from launcher into correct launch args for CommonClient
-        If alternate data is required the urlparse response is saved back to args.url if valid
-        """
-        if not args.url:
-            return args
-
-        url = urllib.parse.urlparse(args.url)
-        if url.scheme != "archipelago":
-            if not parser:
-                parser = get_base_parser()
-            parser.error(f"bad url, found {args.url}, expected url in form of archipelago://archipelago.gg:38281")
-            return args
-
-        args.url = url
-        args.connect = url.netloc
-        if url.username:
-            args.name = urllib.parse.unquote(url.username)
-        if url.password:
-            args.password = urllib.parse.unquote(url.password)
-
-        return args
-
-
-def check_locations(ctx: CommonContext, request: list[int]) -> json:
-    # Back compat, remove when 0.6.2 is old enough
-    needed_updates = set(request).difference(
-        ctx.locations_checked)
-    locationmessage = [{
-        "cmd": "LocationChecks",
-        "locations": list(needed_updates)
-        }]
-    return locationmessage
 
 
 DEBUG = False
@@ -195,11 +157,7 @@ class ProxyGameContext(SuperContext):
         """handle POST at /Locations that uses scouts to return useful info"""
         requestjson = await request.json()
 
-        try:
-            await self.check_locations(requestjson["Locations"])
-        except:  # TODO figure out what the exception actually is
-            # back compat, can just let check_locations run when 0.6.0 is old enough
-            await self.send_msgs(check_locations(self, requestjson["Locations"]))
+        await self.check_locations(requestjson["Locations"])
 
         localResponse = self.build_local_locations_response(requestjson)
         return aiohttp.web.json_response(localResponse)
