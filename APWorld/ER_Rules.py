@@ -382,7 +382,7 @@ class ER_MinitRules:
 
     def set_Minit_rules(self) -> None:
         for region in self.world.get_regions():
-            for entrance in region.entrances:
+            for entrance in region.exits:
                 if entrance.name in region_rules:
                     self.world.set_rule(entrance, region_rules[entrance.name])
                 else:
