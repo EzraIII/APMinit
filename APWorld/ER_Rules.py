@@ -63,7 +63,7 @@ region_rules = {
     # this needs to be a one-way as the bats respawn
     "sewer bat gate -> sewer bat arena": False_(),
     "grinder south": darkroom1_helper & swim_helper,
-    "grinder east": darkroom1_helper,  # maybe 2 & swim_helper,
+    "grinder east": darkroom2_helper & swim_helper,
     "factory machine generator <-> factory machine catwalk": Has("generator smashed"),
     "miner chest pipe entrance <-> miner chest tile": darkroom3_helper & swim_helper,
     # TODO: Better damage boosting logic

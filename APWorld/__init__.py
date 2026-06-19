@@ -93,8 +93,8 @@ from BaseClasses import EntranceType
 
 class MinitSettings(Group):
     class GMDataFile(FilePath):
-        """Path to Minit Vanilla data file"""
-        description = "Minit Vanilla File"
+        """Path to Minit Vanilla data.win file"""
+        description = "Minit Vanilla data.win file"
         md5s = [
             "cd676b395dc2a25df10a569c17226dde",  # steam
             "1432716643381ced3ad0195078e8e314",  # epic
@@ -220,6 +220,9 @@ class MinitWorld(World):
                     other_region.connect(region)
             else:
                 region.add_exits(exit_list)
+        if er_on:
+            from BaseClasses import LocationProgressType
+            self.get_location("Desert RV - Temple Coin").progress_type = LocationProgressType.EXCLUDED
 
     def create_regions(self):
         from worlds.generic.Rules import forbid_item

@@ -35,6 +35,7 @@ DEBUG = False
 GAMENAME = "Minit"
 ITEMS_HANDLING = 0b111
 PATCH_VERSION = 1.0
+patched_name = f"ap_v{PATCH_VERSION}_data.win"
 
 
 def data_path(file_name: str):
@@ -45,7 +46,7 @@ def data_path(file_name: str):
 class MinitCommandProcessor(SuperCommandProcessor):
 
     def _cmd_patch(self):
-        """Patch and launch the game."""
+        f"""Patch the data.win to {patched_name} and launches the game."""
         if isinstance(self.ctx, ProxyGameContext):
             self.ctx.patch_game()
 
@@ -97,7 +98,6 @@ class ProxyGameContext(SuperContext):
             return
 
         basepath = os.path.dirname(data_file)
-        patched_name = f"ap_v{PATCH_VERSION}_data.win"
         patched_path = os.path.join(basepath, patched_name)
 
         if not os.path.isfile(patched_path):

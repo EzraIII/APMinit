@@ -41,13 +41,16 @@ Use one of the following hosting options
 * Open the "Minit Client" through the Launcher
 * Use the top bar to enter the host and port of the Archipelago server running already
   (ex. "localhost:38281" if you are hosting it locally and your port is 38281).
-* When prompted for you Slot Name, enter whatever your username in the .yaml file is,
+* When prompted for your Slot Name, enter whatever your username in the .yaml file is,
   if left default it will likely be "Player1".
 * You now have the proxy client connected to the AP server
 
 ### For Patching
 In the client there is a `/Patch` command you can use which will automatically create a patched data file
 if needed and launch the game when the patching is complete.
+
+**On first run you will be prompted for the `data.win` file**, this path will be saved and reused in your
+host.yaml.
 
 The entire process should be automated but in case you need the information for debugging or alternate setups:
 * The location of your install will be saved in the `host.yaml` configuration file in your Archipelago Install
