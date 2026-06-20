@@ -262,7 +262,7 @@ er_entrances: list[MinitEntranceData] = [
     MinitEntranceData(entrance_name="temple outside south", region_name="temple outside", dead_end=False, group_type="land", room_tile="rom14_10", x_cord=0, y_cord=224, offset_direction="x", offset_value=304),
     MinitEntranceData(entrance_name="temple outside west", region_name="temple outside", dead_end=False, group_type="land", room_tile="rom14_10", x_cord=0, y_cord=0, offset_direction="y", offset_value=224),
     # MinitEntranceData(entrance_name="temple outside door", region_name="temple outside", dead_end=False, group_type="land", room_tile="rom14_10", x_cord=160, y_cord=96, offset_direction="fixed", offset_value=0),
-    MinitEntranceData(entrance_name="desert RV main east", region_name="desert RV main", dead_end=False, group_type="land", room_tile="rom13_9", x_cord=304, y_cord=48, offset_direction="y", offset_value=144),
+    MinitEntranceData(entrance_name="desert RV main east", region_name="desert RV main", dead_end=False, group_type="land", room_tile="rom13_9", x_cord=304, y_cord=48, offset_direction="y", offset_value=128),
     MinitEntranceData(entrance_name="desert RV main south", region_name="desert RV main", dead_end=False, group_type="land", room_tile="rom13_9", x_cord=32, y_cord=224, offset_direction="x", offset_value=224),
     MinitEntranceData(entrance_name="desert RV main west", region_name="desert RV main", dead_end=False, group_type="land", room_tile="rom13_9", x_cord=0, y_cord=80, offset_direction="y", offset_value=32),
     # MinitEntranceData(entrance_name="desert RV main door", region_name="desert RV main", dead_end=False, group_type="land", room_tile="rom13_9", x_cord=144, y_cord=96, offset_direction="fixed", offset_value=0),  # doorup
@@ -698,7 +698,7 @@ game_entrances: dict[str, list[dict[str, any]]] = {
         {"CName": "temple outside door", "direction": "door", "x": 160, "y": 96},
     ],
     "rom13_9": [
-        {"CName": "desert RV main east", "direction": "east", "baseCoor": 48, "offset": 160},
+        {"CName": "desert RV main east", "direction": "east", "baseCoor": 48, "offset": 144},
         {"CName": "desert RV main south", "direction": "south", "baseCoor": 32, "offset": 240},
         {"CName": "desert RV main west", "direction": "west", "baseCoor": 80, "offset": 48},
         {"CName": "desert RV main door", "direction": "door", "x": 144, "y": 96},
