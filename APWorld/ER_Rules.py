@@ -160,24 +160,6 @@ region_rules = {
     "Overworld wet06": swim_helper,
     "bridge switch left <-> bridge switch right":  False_(), # damage boosting is out of logic
 
-    # # toxic waters
-
-    "sewer island tile -> toxic waters":  swim_helper & sword_helper,
-    "toxic waters -> sewer island tile": False_(),
-    "camera river south -> camera river wet": swim_helper,
-    "camera river wet -> camera river south": False_(),
-    "mine entrance left -> toxic waters": swim_helper,
-    "toxic waters -> mine entrance left": False_(),
-    "bridge left -> toxic waters": swim_helper,
-    "toxic waters -> bridge left": False_(),
-    "bridge switch left -> toxic waters": swim_helper,
-    "toxic waters -> bridge switch left": False_(),
-
-    # This logic is here so that the generic entrance randomizer doesn't crash randomizing toxic water connections
-    # with eachother when they aren't logically useful.
-    # This logic says that you can enter the toxic waters, but you cannot exit, making it useless for logic.
-
-
     "temple octopus north": swim_helper & darkroom3_helper,
 
     # # darkroom only
