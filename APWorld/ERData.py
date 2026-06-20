@@ -290,7 +290,7 @@ er_entrances: list[MinitEntranceData] = [
     # MinitEntranceData(entrance_name="Overworld wet09", region_name="Overworld wet09", dead_end=False, group_type="water", room_tile="rom9_12", x_cord=0, y_cord=0, offset_direction="x", offset_value=304),
     # MinitEntranceData(entrance_name="Overworld wet10", region_name="Overworld wet10", dead_end=False, group_type="water", room_tile="rom10_12", x_cord=0, y_cord=0, offset_direction="x", offset_value=304),
     # MinitEntranceData(entrance_name="Overworld wet11", region_name="Overworld wet11", dead_end=False, group_type="water", room_tile="rom11_12", x_cord=0, y_cord=0, offset_direction="x", offset_value=304),
-    MinitEntranceData(entrance_name="Overworld wet12", region_name="Overworld desert", dead_end=False, group_type="water", room_tile="rom12_12", x_cord=0, y_cord=0, offset_direction="x", offset_value=144),
+    MinitEntranceData(entrance_name="Overworld desert wet", region_name="Overworld desert", dead_end=False, group_type="water", room_tile="rom12_12", x_cord=0, y_cord=0, offset_direction="x", offset_value=144),
     # MinitEntranceData(entrance_name="Overworld island door", region_name="Overworld", dead_end=False, group_type="land", room_tile="rom8_15", x_cord=224, y_cord=160, offset_direction="fixed", offset_value=0),
     MinitEntranceData(entrance_name="Overworld dry01", region_name="Overworld desert", dead_end=False, group_type="land", room_tile="rom12_12", x_cord=160, y_cord=0, offset_direction="x", offset_value=144),
     MinitEntranceData(entrance_name="Overworld dry02", region_name="Overworld desert", dead_end=False, group_type="land", room_tile="rom13_11", x_cord=0, y_cord=16, offset_direction="y", offset_value=208),
@@ -751,7 +751,7 @@ game_entrances: dict[str, list[dict[str, any]]] = {
     #     {"CName": "Overworld wet11", "direction": "north", "baseCoor": 0, "offset": 320},
     # ],
     "rom12_12": [
-        {"CName": "Overworld wet12", "direction": "north", "baseCoor": 0, "offset": 160},
+        {"CName": "Overworld desert wet", "direction": "north", "baseCoor": 0, "offset": 160},
         {"CName": "Overworld dry01", "direction": "north", "baseCoor": 160, "offset": 160},
     ],
     "rom13_11": [
