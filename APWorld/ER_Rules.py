@@ -157,7 +157,6 @@ region_rules = {
     "sewer island water west":  swim_helper,
     "throwcheck water south":  swim_helper,
     "throwcheck water west":  swim_helper,
-    "Overworld wet06": swim_helper,
     "Overworld desert wet": swim_helper,
     "bridge switch left <-> bridge switch right":  False_(), # damage boosting is out of logic
 
